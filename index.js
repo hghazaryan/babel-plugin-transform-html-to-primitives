@@ -112,7 +112,7 @@ const SVGTags = [
 ];
 
 
-export default function ({types: t }) {
+module.exports = function ({types: t }) {
   const DefaultPrimitives = {};
 
   for (const tag of TextTags) {
@@ -189,4 +189,4 @@ export default function ({types: t }) {
       }
     }
   };
-}
+};
