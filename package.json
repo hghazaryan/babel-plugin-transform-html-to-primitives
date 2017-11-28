@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "description": "Transforms HTML tags in JSX to their Primitive equivalents",
+  "repository": "hghazaryan/babel-plugin-transform-html-to-primitives",
+  "author": "Hayk Ghazaryan <hayk.ghazaryan@gmail.com>",
+  "main": "index.js",
+  "license": "MIT",
+  "keywords": [
+    "transform",
+    "jsx",
+    "html",
+    "tags",
+    "react",
+    "primitive",
+    "babel-plugin"
+  ]
+}
