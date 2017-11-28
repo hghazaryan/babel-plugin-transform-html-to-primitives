@@ -16,7 +16,7 @@ const ButtonElement = styled.button`
     height: 50px;
     padding: 0 10px;
     border-radius: 3px;
-	background-color: #595959;
+    background-color: #595959;
 `;
 
 const textStyle = {
@@ -52,7 +52,7 @@ const ButtonElement = styled(View)`
     height: 50px;
     padding: 0 10px;
     border-radius: 3px;
-	background-color: #595959;
+    background-color: #595959;
 `;
 
 const textStyle = {
