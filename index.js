@@ -50,6 +50,41 @@ const setImageSourceAttribute = (t, attributes) => {
     }
 };
 
+const getAttributeValue = (t, attributes, propertyName) => {
+    let propertyValue = null;
+    
+    if (!attributes) {
+        return propertyValue;
+    }
+    
+    for (let i in attributes) {
+        if (!attributes.hasOwnProperty(i)) {
+            continue;
+        }
+        
+        if (attributes[i].name.name === propertyName) {
+            propertyValue = attributes[i].value.value;
+        }
+    }
+    return propertyValue;
+};
+
+const removeAttribute = (t, attributes, propertyName) => {
+    if (!attributes) {
+        return;
+    }
+    
+    for (let i in attributes) {
+        if (!attributes.hasOwnProperty(i)) {
+            continue;
+        }
+        
+        if (attributes[i].name.name === propertyName) {
+            delete attributes[i];
+        }
+    }
+};
+
 const TextTags = [
     'a', 'abbr', 'address',
     'b', 'bdi', 'bdo', 'big', 'blockquote', 'br',
@@ -141,13 +176,23 @@ module.exports = function ({types: t }) {
       },
       JSXIdentifier(path, state) {
         const tagNameProp = state.opts.tagNameProp;
+        const primitiveProp = state.opts.primitiveProp;
         const Primitives = Object.assign(DefaultPrimitives, state.opts.primitives);
 
         let tagName = path.node.name,
-            isPrimitiveTag = Object.keys(Primitives).includes(tagName);
+            isPrimitiveTag = Object.keys(Primitives).includes(tagName),
+            primitive = null;
 
-        if (isPrimitiveTag) {
-        	path.node.name = Primitives[tagName];
+        if (primitiveProp) {
+            primitive = getAttributeValue(t, path.parent.attributes, primitiveProp);
+          	removeAttribute(t, path.parent.attributes, primitiveProp);
+        }
+        else if (isPrimitiveTag) {
+        	primitive = Primitives[tagName];
+        }
+        
+        if (primitive !== null) {
+            path.node.name = primitive;
 
           	if (tagNameProp) {
         		setAttribute(t, path.parent.attributes, tagNameProp, tagName);
